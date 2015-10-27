@@ -48,6 +48,40 @@ describe('Game', function () {
 
       assert(game.isGameOver());
     });
+
+    it('should return false if up/down moves are possible', function () {
+      let game = new Game();
+      let board = game.board;
+
+      let tile1 = new Tile('position', board, 2);
+      let tile2 = new Tile('position', board, 4);
+      let tile3 = new Tile('position', board, 8);
+      let tile4 = new Tile('position', board, 2);
+
+      board.spaces = [[tile1, tile2, tile3, tile4],
+                      [tile4, tile3, tile2, tile1],
+                      [tile1, tile2, tile3, tile4],
+                      [tile4, tile3, tile2, tile1]];
+
+      assert.equal(false, game.isGameOver());
+    });
+
+    it('should return false if left/right moves are possible', function () {
+      let game = new Game();
+      let board = game.board;
+
+      let tile1 = new Tile('position', board, 2);
+      let tile2 = new Tile('position', board, 2);
+      let tile3 = new Tile('position', board, 8);
+      let tile4 = new Tile('position', board, 16);
+
+      board.spaces = [[tile1, tile2, tile3, tile4],
+      [tile4, tile3, tile2, tile1],
+      [tile1, tile2, tile3, tile4],
+      [tile4, tile3, tile2, tile1]];
+
+      assert.equal(false, game.isGameOver());
+    });
   });
 
   describe('isGameWon', function () {
