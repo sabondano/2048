@@ -83,7 +83,7 @@
 	  this.spaces.forEach(function (row, rowIndex) {
 
 	    row.forEach(function (space, columnIndex) {
-	      if (space == null) {
+	      if (space === null) {
 
 	        freeSpaces.push([rowIndex, columnIndex]);
 	      }
@@ -214,17 +214,17 @@
 	  var self = this;
 
 	  this.spaces.forEach(function (row, rowIndex) {
-	    if (row[0] == null) {
+	    if (row[0] === null) {
 	      return row;
 	    } else {
 	      row.forEach(function (space, columnIndex) {
-	        if (space == null) {
+	        if (space === null) {
 	          return space;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) == null) {
+	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === null) {
 	          return space;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) == "No space found.") {
+	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === "No space found.") {
 	          return space;
-	        } else if (space.value == self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
+	        } else if (space.value === self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
 	          space.value *= 2;
 	          self.game.updateScore(space.value);
 	          self.spaces[rowIndex][columnIndex + 1] = null;
@@ -282,17 +282,17 @@
 	  var self = this;
 
 	  var combinationPossibilities = this.spaces.map(function (row, rowIndex) {
-	    if (row[0] == null) {
+	    if (row[0] === null) {
 	      return true;
 	    } else {
 	      return row.map(function (space, columnIndex) {
-	        if (space == null) {
+	        if (space === null) {
 	          return true;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) == null) {
+	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === null) {
 	          return true;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) == "No space found.") {
+	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === "No space found.") {
 	          return false;
-	        } else if (space.value == self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
+	        } else if (space.value === self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
 	          return true;
 	        } else {
 	          return false;
@@ -313,17 +313,17 @@
 	  var self = this;
 
 	  var combinationPossibilities = this.spaces.map(function (row, rowIndex) {
-	    if (row[0] == null) {
+	    if (row[0] === null) {
 	      return true;
 	    } else {
 	      return row.map(function (space, columnIndex) {
-	        if (space == null) {
+	        if (space === null) {
 	          return true;
-	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) == null) {
+	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) === null) {
 	          return true;
-	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) == "No space found.") {
+	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) === "No space found.") {
 	          return false;
-	        } else if (space.value == self.checkSpaceAt(rowIndex + 1, columnIndex).value) {
+	        } else if (space.value === self.checkSpaceAt(rowIndex + 1, columnIndex).value) {
 	          return true;
 	        } else {
 	          return false;
@@ -7243,7 +7243,6 @@
 	'use strict';
 
 	var $ = __webpack_require__(6);
-	var _ = __webpack_require__(3);
 
 	function Renderer(game) {
 	  this.game = game;
@@ -7272,8 +7271,8 @@
 	  return this;
 	};
 
-	Renderer.prototype.printScoreTo = function (target) {
-	  var scoreDiv = $('.score').text(this.game.score);
+	Renderer.prototype.printScoreTo = function () {
+	  $('.score').text(this.game.score);
 	};
 
 	module.exports = Renderer;
@@ -8760,7 +8759,7 @@
 	Game.prototype.isGameWon = function () {
 	  var tiles = this.collectAllTiles();
 	  var has2048 = _.find(tiles, function (tile) {
-	    return tile.value == 2048;
+	    return tile.value === 2048;
 	  });
 
 	  return has2048 ? true : false;
