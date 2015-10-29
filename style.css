@@ -175,3 +175,10 @@ div {
     color: #F9F6F2;
     font-size: 45px;
 }
+
+.tile-2048 {
+    text-align: center;
+    background-color: #EDC53F;
+    color: #0AAAFF;
+    font-size: 45px;
+}
