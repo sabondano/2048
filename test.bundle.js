@@ -137,31 +137,19 @@
 	};
 
 	Board.prototype.isPositionValid = function (rowIndex, columnIndex) {
-	  if (this.isRowValid(rowIndex) && this.isColumnValid(columnIndex)) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  return this.isRowValid(rowIndex) && this.isColumnValid(columnIndex);
 	};
 
 	Board.prototype.isRowValid = function (rowIndex) {
 	  var height = this.spaces.length;
 
-	  if (rowIndex >= 0 && rowIndex < height) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  return rowIndex >= 0 && rowIndex < height;
 	};
 
 	Board.prototype.isColumnValid = function (columnIndex) {
 	  var width = this.spaces[0].length;
 
-	  if (columnIndex >= 0 && columnIndex < width) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  return columnIndex >= 0 && columnIndex < width;
 	};
 
 	Board.prototype.shiftLeft = function () {
@@ -218,23 +206,26 @@
 	      return row;
 	    } else {
 	      row.forEach(function (space, columnIndex) {
-	        if (space === null) {
+	        if (space === null || self.rightNeighbor(rowIndex, columnIndex) === null || self.rightNeighbor(rowIndex, columnIndex) === "No space found.") {
 	          return space;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === null) {
-	          return space;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === "No space found.") {
-	          return space;
-	        } else if (space.value === self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
+	        }
+	        if (space.value === self.rightNeighbor(rowIndex, columnIndex).value) {
 	          space.value *= 2;
 	          self.game.updateScore(space.value);
 	          self.spaces[rowIndex][columnIndex + 1] = null;
-	          return space;
-	        } else {
 	          return space;
 	        }
 	      });
 	    }
 	  });
+	};
+
+	Board.prototype.rightNeighbor = function (rowIndex, columnIndex) {
+	  return this.checkSpaceAt(rowIndex, columnIndex + 1);
+	};
+
+	Board.prototype.bottomNeighbor = function (rowIndex, columnIndex) {
+	  return this.checkSpaceAt(rowIndex + 1, columnIndex);
 	};
 
 	Board.prototype.transpose = function (spaces) {
@@ -286,27 +277,18 @@
 	      return true;
 	    } else {
 	      return row.map(function (space, columnIndex) {
-	        if (space === null) {
-	          return true;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === null) {
-	          return true;
-	        } else if (self.checkSpaceAt(rowIndex, columnIndex + 1) === "No space found.") {
+	        if (self.rightNeighbor(rowIndex, columnIndex) === "No space found.") {
 	          return false;
-	        } else if (space.value === self.checkSpaceAt(rowIndex, columnIndex + 1).value) {
+	        }
+	        if (space === null || self.rightNeighbor(rowIndex, columnIndex) === null || space.value === self.rightNeighbor(rowIndex, columnIndex).value) {
 	          return true;
-	        } else {
-	          return false;
 	        }
 	      });
 	    }
 	  });
 
 	  combinationPossibilities = _.flatten(combinationPossibilities);
-	  if (_.includes(combinationPossibilities, true)) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  return _.includes(combinationPossibilities, true);
 	};
 
 	Board.prototype.checkForUpDownCombinations = function () {
@@ -317,37 +299,26 @@
 	      return true;
 	    } else {
 	      return row.map(function (space, columnIndex) {
-	        if (space === null) {
-	          return true;
-	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) === null) {
-	          return true;
-	        } else if (self.checkSpaceAt(rowIndex + 1, columnIndex) === "No space found.") {
+	        if (self.bottomNeighbor(rowIndex, columnIndex) === "No space found.") {
 	          return false;
-	        } else if (space.value === self.checkSpaceAt(rowIndex + 1, columnIndex).value) {
+	        }
+	        if (space === null || self.bottomNeighbor(rowIndex, columnIndex) === null || space.value === self.bottomNeighbor(rowIndex, columnIndex).value) {
 	          return true;
-	        } else {
-	          return false;
 	        }
 	      });
 	    }
 	  });
 
 	  combinationPossibilities = _.flatten(combinationPossibilities);
-	  if (_.includes(combinationPossibilities, true)) {
-	    return true;
-	  } else {
-	    return false;
-	  }
+	  return _.includes(combinationPossibilities, true);
 	};
 
 	Board.prototype.collectAllTiles = function () {
 	  var tiles = _.flatten(this.spaces);
 
-	  tiles = _.filter(tiles, function (tile) {
+	  return _.filter(tiles, function (tile) {
 	    return tile != null;
 	  });
-
-	  return tiles;
 	};
 
 	module.exports = Board;
