@@ -1,4 +1,4 @@
-# Game Time Starter Kit
+# A JS Clone of the 2048 Game
 
 To install the dependencies:
 
@@ -14,8 +14,8 @@ npm start
 
 Once the server is running, you can visit:
 
-* `http://localhost:8080/webpack-dev-server/` to run your application.
-* `http://localhost:8080/webpack-dev-server/test.html` to run your test suite in the browser.
+* `http://localhost:8080/webpack-dev-server/` to play the game.
+* `http://localhost:8080/webpack-dev-server/test.html` to run the test suite in the browser.
 
 To build the static files:
 
